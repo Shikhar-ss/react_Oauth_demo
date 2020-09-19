@@ -1,17 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { Auth0Provider } from "@auth0/auth0-react";
+require('dotenv').config();
 
+const oAuthDomain = process.env.REACT_APP_AUTH0_DOMAIN;
+const oAuthClientId = process.env.REACT_APP_AUTH_CLIENT_ID;
+
+console.log("here: ",[oAuthDomain,oAuthClientId]);
 ReactDOM.render(
-  <React.StrictMode>
+  <Auth0Provider
+    domain={oAuthDomain}
+    clientId={oAuthClientId}
+    redirectUri={window.location.origin}
+  >
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </Auth0Provider>,
+  document.getElementById("root")
 );
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
